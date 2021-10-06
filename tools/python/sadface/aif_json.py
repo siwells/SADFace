@@ -39,6 +39,7 @@ def process_atom(node):
         "old_id": node['nodeID'],
         "new_id": new_atom['id']
     }
+    sadface.add_atom_metadata(new_atom['id'], 'aif_json', key='timestamp', value=node['timestamp'])
     nodes_placeholder.append(new_node)
 
 
@@ -49,6 +50,8 @@ def process_scheme(node):
             "old_id": node['nodeID'],
             "new_id": new_scheme['id']
         }
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='timestamp', value=node['timestamp'])
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='type', value=node['type'])
         nodes_placeholder.append(new_node)
     else:
         new_scheme = sadface.add_scheme(name=node['text'])
@@ -56,13 +59,18 @@ def process_scheme(node):
             "old_id": node['nodeID'],
             "new_id": new_scheme['id']
         }
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='timestamp', value=node['timestamp'])
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='type', value=node['type'])
         nodes_placeholder.append(new_node)
 
 
 def process_edge(edge):
     from_node = get_matching_node(edge['fromID'])
     to_node = get_matching_node(edge['toID'])
-    sadface.add_edge(source_id=from_node, target_id=to_node)
+    if from_node and to_node is not None:
+        sadface.add_edge(source_id=from_node, target_id=to_node)
+    else:
+        pass
 
 
 def get_matching_node(old_node_id):
