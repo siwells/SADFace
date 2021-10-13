@@ -44,16 +44,7 @@ def process_atom(node):
 
 
 def process_scheme(node):
-    if 'scheme' in node:
-        new_scheme = sadface.add_scheme(name=node['scheme'])
-        new_node = {
-            "old_id": node['nodeID'],
-            "new_id": new_scheme['id']
-        }
-        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='timestamp', value=node['timestamp'])
-        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='type', value=node['type'])
-        nodes_placeholder.append(new_node)
-    else:
+    if "CA" in node['type'] or "RA" in node['type'] or "MA" in node['type']:
         new_scheme = sadface.add_scheme(name=node['text'])
         new_node = {
             "old_id": node['nodeID'],
