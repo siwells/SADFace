@@ -2,7 +2,7 @@
 
 import uuid
 
-from . import sadface
+import sadface
 
 
 def check_edges_block(doc):

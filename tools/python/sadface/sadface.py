@@ -9,8 +9,8 @@ import sys
 import textwrap
 import uuid
 
-from . import config
-from . import validation
+import config
+import validation
 
 sd = {}
 
