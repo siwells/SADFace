@@ -44,14 +44,25 @@ def process_atom(node):
 
 
 def process_scheme(node):
-    if "CA" in node['type'] or "RA" in node['type'] or "MA" in node['type']:
-        new_scheme = sadface.add_scheme(name=node['text'])
+    if "CA" in node['type']:
+        new_scheme = sadface.add_scheme(name='Conflict')
         new_node = {
             "old_id": node['nodeID'],
             "new_id": new_scheme['id']
         }
         sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='timestamp', value=node['timestamp'])
         sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='type', value=node['type'])
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='text', value=node['text'])
+        nodes_placeholder.append(new_node)
+    if "RA" in node['type']:
+        new_scheme = sadface.add_scheme(name='Support')
+        new_node = {
+            "old_id": node['nodeID'],
+            "new_id": new_scheme['id']
+        }
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='timestamp', value=node['timestamp'])
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='type', value=node['type'])
+        sadface.add_scheme_metadata(new_scheme['id'], 'aif_json', key='text', value=node['text'])
         nodes_placeholder.append(new_node)
 
 
